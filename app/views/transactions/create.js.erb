@@ -1,0 +1,7 @@
+<% if @transaction && @transaction.errors.any? %>
+	toastr.error("<%= @transaction.errors.full_messages.to_sentence  %>");
+<% elsif @car && @car.errors.any? %>
+	toastr.error("<%= @car.errors.full_messages.to_sentence  %>");	
+<% else %>
+	window.location = "<%= escape_javascript(transactions_path) %>";
+<% end %>

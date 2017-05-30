@@ -1,0 +1,59 @@
+<h2>Create Transacation</h2>
+<div class="row">
+  <div class="col-sm-10">
+    <div class="ibox">
+      <div class="ibox-content">
+        <%= form_for @transaction, html: {:class => 'form-horizontal ng-pristine ng-valid'}, remote: true do |f| %>
+
+            <%= f.fields_for @car do |ff| %>
+              <div class="form-group">
+                <%= ff.label 'License Number', class: 'col-sm-2 control-label' %>
+                <div class="col-sm-10"><%= ff.text_field :license_number, autofocus: true, class: 'form-control' %></div>
+              </div>
+              <div class="form-group">
+                <%= ff.label 'Vehicle Type', class: 'col-sm-2 control-label' %>
+                <div class="col-sm-10">
+                  <%= ff.label :car_type, "Car", :value => "car" %>
+                  <%= ff.radio_button :car_type, "car" %>
+
+                  <%= ff.label :car_type, "Truck", :value => "truck" %>
+                  <%= ff.radio_button :car_type, "truck" %>
+                </div>
+              </div>
+            <% end %>
+            <div id="truck_atts">
+              <div class="form-group">
+                <%= f.label :mud_in_bed, class: 'col-sm-2 control-label' %>
+                <div class="col-sm-10"><%= f.check_box :mud_in_bed %></div>
+              </div>
+
+              <div class="form-group">
+                <%= f.label :bed_down, class: 'col-sm-2 control-label' %>
+                <div class="col-sm-10"><%= f.check_box :bed_down %></div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div>
+                <div class="col-sm-4 col-sm-offset-2">
+                  <%= f.submit 'Save', class: 'btn btn-primary btn-sm' %>
+                  <%= link_to 'Back', transactions_path , :class => 'btn btn-white btn-sm' %>
+                </div>
+              </div>
+            </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$('#truck_atts').hide();
+$('input[name="transaction[car][car_type]"]').change(function() {
+  if($(this).val() == "truck") {
+    $('#truck_atts').show();
+  } else {
+    $('#truck_atts').hide();
+  }
+});
+</script>
